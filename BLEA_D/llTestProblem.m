@@ -694,3 +694,101 @@ function [functionValue equalityConstrVals inequalityConstrVals] = DecisionMakin
     inequalityConstrVals(3) = 4.51*x1 - 3.56*x2 + 1.46*y1 + 2.42*y2 + 7.43*y3 - 565;
     inequalityConstrVals(4) = -(4.47*x1 + 5.46*x2 - 6.23*y1 - 4.78*y2 + 7.34*y3);
     inequalityConstrVals(5) = -(5.34*x1 + 3.74*x2 + 9.45*y1 + 6.37*y2 + 5.45*y3);
+
+
+function [functionValue equalityConstrVals inequalityConstrVals] = pmm1(xu, xl)
+
+    %At optima x1=0,x2=30,y1=-10,y2=10,fu=0,fl=-100
+    x = xu; %x(i) = xu(i);
+    y = xl; %y(i) = xl(i);
+    
+    functionValue = PMM_follower(x, y, 1);
+        
+    functionValue = -functionValue;
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %Write the constraints here
+    equalityConstrVals = [];
+    inequalityConstrVals = [];
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [functionValue equalityConstrVals inequalityConstrVals] = pmm2(xu, xl)
+
+    %At optima x1=0,x2=30,y1=-10,y2=10,fu=0,fl=-100
+    x = xu; %x(i) = xu(i);
+    y = xl; %y(i) = xl(i);
+    
+    functionValue = PMM_follower(x, y, 2);
+        
+    functionValue = -functionValue;
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %Write the constraints here
+    equalityConstrVals = [];
+    inequalityConstrVals = [];
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [functionValue equalityConstrVals inequalityConstrVals] = pmm3(xu, xl)
+
+    %At optima x1=0,x2=30,y1=-10,y2=10,fu=0,fl=-100
+    x = xu; %x(i) = xu(i);
+    y = xl; %y(i) = xl(i);
+    
+    functionValue = PMM_follower(x, y, 3);
+        
+    functionValue = -functionValue;
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %Write the constraints here
+    equalityConstrVals = [];
+    inequalityConstrVals = [];
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [functionValue equalityConstrVals inequalityConstrVals] = pmm4(xu, xl)
+
+    %At optima x1=0,x2=30,y1=-10,y2=10,fu=0,fl=-100
+    x = xu; %x(i) = xu(i);
+    y = xl; %y(i) = xl(i);
+    
+    functionValue = PMM_follower(x, y, 4);
+        
+    functionValue = -functionValue;
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %Write the constraints here
+    equalityConstrVals = [];
+    inequalityConstrVals = [];
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [functionValue equalityConstrVals inequalityConstrVals] = pmm5(xu, xl)
+
+    %At optima x1=0,x2=30,y1=-10,y2=10,fu=0,fl=-100
+    x = xu; %x(i) = xu(i);
+    y = xl; %y(i) = xl(i);
+    
+    functionValue = PMM_follower(x, y, 5);
+        
+    functionValue = -functionValue;
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %Write the constraints here
+    equalityConstrVals = [];
+    inequalityConstrVals = [];
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function [functionValue equalityConstrVals inequalityConstrVals] = pmm6(xu, xl)
+
+    %At optima x1=0,x2=30,y1=-10,y2=10,fu=0,fl=-100
+    x = xu; %x(i) = xu(i);
+    y = xl; %y(i) = xl(i);
+    
+    functionValue = PMM_follower(x, y, 6);
+        
+    functionValue = -functionValue;
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %Write the constraints here
+    equalityConstrVals = [];
+    inequalityConstrVals = [];
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    

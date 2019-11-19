@@ -25,8 +25,8 @@ end
 if strcmp(benchmark,'TP')
 	fn = sprintf('tp%d',fno);
 	assert(ismember(fno,1:10));
-	ulStoppingCriteria = 1e-4;
-	llStoppingCriteria = 1e-5;
+	ulStoppingCriteria = 1e-2;
+	llStoppingCriteria = 1e-3;
 
 	%% check where the constraints are from
 	switch fno
@@ -147,8 +147,8 @@ end
 if strcmp(benchmark,'SMD')
 	fn = sprintf('smd%d',fno);
 	assert(ismember(fno,1:12));
-	ulStoppingCriteria = 1e-4;
-	llStoppingCriteria = 1e-5;
+	ulStoppingCriteria = 1e-2;
+	llStoppingCriteria = 1e-3;
 	eps = 0.00001;
     if nargin == 3
     	if dim == 5
@@ -274,8 +274,8 @@ if strcmp(benchmark,'SMD')
 end
 if strcmp(benchmark,'DecisionMaking')
 	fn = benchmark;
-	ulStoppingCriteria = 1e-4;
-	llStoppingCriteria = 1e-5;
+	ulStoppingCriteria = 1e-2;
+	llStoppingCriteria = 1e-3;
 
 	isLowerLevelConstraintsIncludedInUpperLevel = false;
 
@@ -302,8 +302,8 @@ if strcmp(benchmark,'DecisionMaking')
 end
 if strcmp(benchmark,'GoldMining')
 	fn = benchmark;
-	ulStoppingCriteria = 1e-4;
-	llStoppingCriteria = 1e-5;
+	ulStoppingCriteria = 1e-2;
+	llStoppingCriteria = 1e-3;
 
 	isLowerLevelConstraintsIncludedInUpperLevel = false;
 
@@ -328,6 +328,52 @@ if strcmp(benchmark,'GoldMining')
     ulOpt = -ulBestKnownFunctionValue(1);
     llOpt = -llBestKnownFunctionValue(1);
 end
+if strcmp(benchmark,'PMM')
+	fn = sprintf('pmm%d',fno);
+	assert(ismember(fno,1:6));
+
+	ulStoppingCriteria = 1e-2;
+	llStoppingCriteria = 1e-3;
+
+	isLowerLevelConstraintsIncludedInUpperLevel = false;
+
+	%% population size
+    ulPopSize=50; llPopSize=50;
+	% dimensionality
+	if nargin == 3
+    	if dim == 5
+    		ulDim = 2;
+    		llDim = 3;
+		else
+            llDim = round(dim / 2);
+            ulDim = dim - llDim;
+        end
+        % if dim >= 5 && mod(dim,5) == 0
+        %     ulDim = dim * 2 / 5;
+        %     llDim = dim - ulDim;
+        % else
+        %     error('no supported dimensionality');
+        % end
+    else
+        ulDim=2; llDim=3;
+    end
+	%% boundaries and number of constraints
+	ulDimMin = -10*ones(1, ulDim);;
+	ulDimMax = 10*ones(1, ulDim);;
+	llDimMin = -10*ones(1, llDim);;
+	llDimMax = 10*ones(1, llDim);;
+	ul_ieqcon_num = 0;
+	ll_ieqcon_num = 0;
+	ul_eqcon_num = 0;
+	ll_eqcon_num = 0;
+
+	%% optimal values
+	ulBestKnownFunctionValue = 0;
+    llBestKnownFunctionValue = 0;
+
+    ulOpt = -ulBestKnownFunctionValue;
+    llOpt = -llBestKnownFunctionValue;
+end
 BI.u_ieqcon_num = ul_ieqcon_num;
 BI.l_ieqcon_num = ll_ieqcon_num;
 BI.u_eqcon_num = ul_eqcon_num;
@@ -342,7 +388,7 @@ BI.u_ub = ulDimMax;
 BI.l_lb = llDimMin;
 BI.l_ub = llDimMax;
 BI.xrange = [ulDimMin llDimMin;ulDimMax llDimMax];
-
+BI.fno = fno;
 BI.u_ftol = 1e-6;
 BI.l_ftol = 1e-6;
 
