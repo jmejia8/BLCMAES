@@ -1,22 +1,32 @@
-function analysis()
-D_ul = 2;
-D_ll = 3;
+function analysis(D_ul, D_ll)
+benchmark = 'SMD';
+if not(nargin == 2)
+    D_ul = 2;
+    D_ll = 3;
+end
 
-ul_evals = zeros(31, 6);
-ll_evals = zeros(31, 6);
+fnums = 0;
+if benchmark == 'SMD'
+    fnums = 8;
+elseif benchmark == 'PMM'
+    fnums = 6;
+end
 
-ul_accur = zeros(31, 6);
-ll_accur = zeros(31, 6);
-ul_error = zeros(31, 6);
-ll_error = zeros(31, 6);
+ul_evals = zeros(31, fnums);
+ll_evals = zeros(31, fnums);
 
-for fnum = 1:6
+ul_accur = zeros(31, fnums);
+ll_accur = zeros(31, fnums);
+ul_error = zeros(31, fnums);
+ll_error = zeros(31, fnums);
+
+for fnum = 1:fnums
     i = 0;
     j = 0;
 
 
     for nrun = 1:31
-        fname  = sprintf('data_%d_%d/BLCMEAES_PMM%drun%dDUL%dDLL%d.mat', D_ul, D_ll,  fnum, nrun, D_ul, D_ll);
+        fname  = sprintf('data_%d_%d/BLCMEAES_%s%drun%dDUL%dDLL%d.mat', D_ul, D_ll, benchmark,  fnum, nrun, D_ul, D_ll);
         therun = load(fname);
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -31,10 +41,14 @@ for fnum = 1:6
         f = therun.llEliteFunctionValue;
         x = therun.ulEliteIndiv;
         y = therun.llEliteIndiv;
-        psi = PMM_Psi(x, D_ll, 1);
+        psi = PMM_Psi(x, D_ll, fnum);
         
-        nx = norm(x);
-        ny = norm(y - psi);
+        nx = 0;
+        ny = 0;
+        if benchmark == 'PMM'
+            nx = norm(x);
+            ny = norm(y - psi);
+        end
         
         ul_error(nrun, fnum) = nx;
         ll_error(nrun, fnum) = ny;
@@ -63,15 +77,15 @@ if not(isdir(dirname))
 end
 
 header = {};
-for i = 1:6
-    header{i} = sprintf('PMM%d',i);
+for i = 1:fnums
+    header{i} = sprintf('%s%d', benchmark ,i);
 end
 
 matrices = {ul_evals,ll_evals,ul_accur,ll_accur,ul_error,ll_error};
-fnames = {'PMM_ul_evals', 'PMM_ll_evals', 'PMM_ul_accur', 'PMM_ll_accur', 'PMM_ul_error', 'PMM_ll_error'};
+fnames = {'ul_evals', 'll_evals', 'ul_accur', 'll_accur', 'ul_error', 'll_error'};
 
 for i = 1:length(fnames)
-    fname  = sprintf('%s/%s_BLCMEAES_%d_%d.csv', dirname,string(fnames(i)), D_ul, D_ll);
+    fname  = sprintf('%s/%s_%s_BLCMEAES_%d_%d.csv', dirname, benchmark,string(fnames(i)), D_ul, D_ll);
     T = array2table(cell2mat(matrices(i)));
     T.Properties.VariableNames = header;
     writetable(T, fname);

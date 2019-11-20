@@ -10,9 +10,9 @@ maxRuns = 31;
 BI_list = [];
 BI_list = [BI_list;getBLOPinfo('PMM',1:6,5)];
 BI_list = [BI_list;getBLOPinfo('PMM',1:6,10)];
+BI_list = [BI_list;getBLOPinfo('SMD',1:8,5)];
+BI_list = [BI_list;getBLOPinfo('SMD',1:8,10)];
 % BI_list = [BI_list;getBLOPinfo('TP',1:10)];
-% BI_list = [BI_list;getBLOPinfo('SMD',1:12,10)];
-% BI_list = [BI_list;getBLOPinfo('SMD',1:12,20)];
 
 % BI_list = [BI_list;getBLOPinfo('GoldMining')];
 % BI_list = [BI_list;getBLOPinfo('DecisionMaking')];
